@@ -6,29 +6,21 @@ Cybersecurity portfolio focused on practical investigations, security operations
 
 This site features writeups of any challenges I've found particularly interesting, eventually hopefully covering a wide range of topics.
 
-## Featured Case Studies
+## Featured Writeups
 
-### Phishing-Led Endpoint Compromise Investigation
-Reconstructed a phishing attack from suspicious attachment delivery through PowerShell execution, internal reconnaissance, and attempted exfiltration.
+### TryHackMe - Phishing Unleashed
+A SOC simulator scenario featuring a phishing incident involving malicious attachment execution, PowerShell activity, internal reconnaissance, and attempted exfiltration. 
 
-[Read Case Study](phishing-case-study.html)
+[Read Writeup](phishing-unleashed.md)
 
 ---
 
-### Alert Triage and False Positive Analysis
-Assessed low-severity detections to distinguish weak signals from meaningful indicators of compromise.
+### Placeholder
+Lorem ipsum.
 
-[Read Case Study](triage-case-study.html)
+[Read Writeup](placeholder.md)
 
 ---
 
 ### Additional Projects
-Detection engineering, log analysis, and threat hunting projects in progress.
-
-## Core Focus Areas
-
-- Security Operations  
-- Incident Investigation  
-- SIEM / Log Analysis  
-- Threat Detection  
-- Security Reporting
+TBA
