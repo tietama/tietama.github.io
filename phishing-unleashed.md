@@ -1,14 +1,14 @@
-# TryHackMe - Placeholder
+# TryHackMe - Phishing Unfolding
 
 _"Dive into the heat of a live phishing attack as it unfolds within the corporate network. In this high-pressure scenario, your role is to meticulously analyse and document each phase of the breach as it happens._
 
 _Can you piece together the attack chain in real-time and prepare a comprehensive report on the malicious activities?"_
 
-## Executive Summary
+## Summary
 
-This case study documents a simulated Security Operations Center (SOC) investigation in which multiple low-severity alerts initially appeared to be routine false positives. Further analysis revealed that one alert represented the beginning of a targeted phishing attack against a company executive.
+This writeup documents a simulated Security Operations Center (SOC) investigation in which multiple low-severity alerts initially appeared to be routine false positives. Further analysis revealed that one alert represented the beginning of a targeted phishing attack against a company executive.
 
-The incident progressed from malicious email delivery to endpoint compromise, internal reconnaissance, access to sensitive financial records, and attempted data exfiltration within minutes.
+The incident progressed from malicious email delivery to endpoint compromise, internal reconnaissance, access to sensitive financial records, and data exfiltration within minutes.
 
 This exercise demonstrated the importance of effective alert triage, contextual risk assessment, and rapid escalation when weak signals may indicate high-impact threats.
 
@@ -29,16 +29,16 @@ The scenario began with several low-severity alerts involving suspicious inbound
 Examples included:
 
 - inbound messages from unusual top-level domains  
-- generic spam / phishing themes  
+- generic spam / phishing messages  
 - legitimate Windows processes flagged due to what appeared to be rarity-based detection logic
 
-These alerts were reviewed but did not initially show evidence of compromise.
+These alerts were reviewed but did not show evidence of compromise.
 
-![Placeholder – suspicious email alert screenshot](assets/images/early-alerts.png)
+![Initial suspicious email alert screenshot](assets/images/Phishing-1.png)
 
-### Analyst Assessment
+### Assessment
 
-These detections appeared to reflect tuning gaps rather than active malicious activity.
+These detections appeared to reflect tuning gaps rather than actual malicious activity.
 
 ### Key Observation
 
@@ -48,7 +48,7 @@ A high alert count does not necessarily equal high risk.
 
 # Phase 2 – First Meaningful Signal
 
-A new alert identified a suspicious email attachment delivered directly to the company CEO.
+A new alert identified a suspicious email attachment delivered to the company CEO.
 
 **Subject:**
 
@@ -58,15 +58,19 @@ A new alert identified a suspicious email attachment delivered directly to the c
 
 `ImportantInvoice-Febrary.zip`
 
+![Suspicious attachment alert](assets/images/Phishing-2.png)
+
+The analysis tool provided on the attached VM quickly confirmed that the file contained within the attachment was malicious.
+
+![Malicious attachment analysis](assets/images/Phishing-3.png)
+
 Although still labeled low severity, this alert required immediate reprioritization because:
 
 - malicious attachments present execution risk  
 - single-recipient delivery suggested targeting  
 - executive compromise could create significant business impact
 
-![Placeholder – suspicious attachment alert screenshot](assets/images/attachment-alert.png)
-
-### Analyst Assessment
+### Assessment
 
 This was the first alert that warranted urgent escalation.
 
@@ -78,7 +82,7 @@ Severity labels should not override business context.
 
 # Phase 3 – Confirmed Endpoint Compromise
 
-Subsequent telemetry showed the attachment was opened via Windows Explorer, triggering PowerShell execution.
+Subsequent telemetry showed the attachment was opened via Windows Explorer some 20 minutes later, triggering PowerShell execution.
 
 Observed command activity included:
 
@@ -91,13 +95,13 @@ Example behavior:
 - remote PowerShell command execution  
 - outbound command-and-control activity
 
-![Placeholder – PowerShell execution screenshot](assets/images/powershell-execution.png)
+![PowerShell execution screenshot](assets/images/Phishing-4.png)
 
 ### Tooling Observed
 
 **PowerCat** – PowerShell-based networking utility commonly abused for reverse shells and command execution.
 
-### Analyst Assessment
+### Assessment
 
 This confirmed successful user execution and attacker foothold on the endpoint.
 
@@ -112,15 +116,16 @@ Examples included:
 - `systeminfo.exe`
 - `whoami.exe`
 
+![Reconnaissance](assets/images/Phishing-5.png)
+Note: The timestamp in the above screenshot differs from the others because I returned to the simulator to take additional screenshots.
+
 Additional tooling indicated use of:
 
 **PowerView** – PowerShell framework commonly used for Active Directory and internal network reconnaissance.
 
 A PowerView script was also created in the user Downloads directory.
 
-![Placeholder – reconnaissance screenshot](assets/images/reconnaissance.png)
-
-### Analyst Assessment
+### Assessment
 
 The attacker was actively gathering host and domain intelligence to identify follow-on opportunities.
 
@@ -134,19 +139,20 @@ The attacker then mapped an internal network share:
 
 Drive `Z:` was mounted temporarily.
 
+![Network share accessed](assets/images/Phishing-6.png)
+
 Shortly afterward, logs showed **Robocopy** creating files in a local exfiltration staging folder.
 
-Observed file:
+Observed files:
 
-`ClientPortfolioSummary.xlsx`
-
-![Placeholder – network share screenshot](assets/images/share-access.png)
+- `ClientPortfolioSummary.xlsx`
+- `InvestorPresentation2023.pptx`
 
 ### Tooling Observed
 
 **Robocopy** – legitimate Windows file copy utility often abused for bulk data staging and transfer.
 
-### Analyst Assessment
+### Assessment
 
 This represented likely collection of sensitive business data prior to exfiltration.
 
@@ -154,17 +160,17 @@ This represented likely collection of sensitive business data prior to exfiltrat
 
 # Phase 6 – Attempted Exfiltration
 
-Final logs showed suspicious `nslookup.exe` execution with a long encoded-looking subdomain:
+Final logs showed suspicious `nslookup.exe` executions with a long encoded-looking subdomain:
 
 `UEsDBBQAAAA...haz4rdw4re.io`
 
 This behavior is consistent with DNS-based data exfiltration or tunneling.
 
-![Placeholder – DNS exfil screenshot](assets/images/dns-exfiltration.png)
+![DNS exfiltration](assets/images/Phishing-7.png)
 
-### Analyst Assessment
+### Assessment
 
-The attacker likely attempted to move staged data externally through DNS requests.
+The attacker likely moved staged data externally through DNS requests.
 
 ---
 
@@ -177,7 +183,7 @@ The attacker likely attempted to move staged data externally through DNS request
 5. Reconnaissance performed  
 6. Financial share accessed  
 7. Files staged locally  
-8. DNS exfiltration attempted
+8. DNS exfiltration
 
 ---
 
@@ -236,7 +242,7 @@ Once execution began, attacker activity progressed within minutes.
 
 ## User Awareness
 
-- Reinforce training around ZIP/LNK disguised attachments  
+- Reinforce training around disguised attachments  
 - Promote urgent reporting of suspicious invoice emails
 
 ---
@@ -255,6 +261,7 @@ Once execution began, attacker activity progressed within minutes.
 
 # Final Reflection
 
-This scenario highlighted a common SOC challenge: genuine incidents are not always preceded by high-severity alerts. In many environments, the real skill lies in identifying which low-confidence signal deserves immediate attention.
+This scenario taught two different lessons as it unfolded:
 
-The most dangerous alert in this case did not look the loudest at first glance.
+- Poor detection rules will flood the SOC with alerts, risking alert fatigue in the analysts
+- Once initial access has been established, an entire attack chain can be over in a matter of minutes, and in the case of this attack, the first sign of anything being wrong was a seemingly low-severity alert
