@@ -15,10 +15,10 @@ A SOC simulator scenario featuring a phishing incident involving malicious attac
 
 ---
 
-### Placeholder
-Lorem ipsum.
+### TryHackMe - Have A Break
+An OSINT challenge based on the "KitKat heist" in March 2026.
 
-[Read Writeup](placeholder.md)
+[Read Writeup](have-a-break.md)
 
 ---
 
