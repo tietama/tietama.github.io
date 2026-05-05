@@ -235,7 +235,7 @@ The account is associated with:
 
 ### Assessment
 
-This step relies on external data correlation rather than analytical deduction but provides strong attribution linking the insider activity to a real-world identity. The finding also correlates with the earlier data pointing to the fuel station.
+This step relies on external data correlation rather than analytical deduction but provides strong attribution linking the insider activity to an identity. The finding also correlates with the earlier data pointing to the fuel station.
 
 ---
 
