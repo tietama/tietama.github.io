@@ -8,7 +8,7 @@ _An anonymous tip reached a journalist the following evening. ECTA obtained it u
 
 ---
 
-## Executive Summary
+## Summary
 
 This investigation analyses a suspected insider-facilitated cargo theft involving a high-value shipment transiting from Italy to Poland.
 
