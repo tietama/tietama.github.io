@@ -147,7 +147,7 @@ Late-night export of sensitive routing data strongly indicates intentional data 
 
 ---
 
-## 🧾 Phase 4 – Source Identification (Anonymous Email)
+## Phase 4 – Source Identification (Anonymous Email)
 
 Following identification of anomalous activity within the route planning system, attention returns to the anonymous email.
 
