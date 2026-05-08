@@ -20,7 +20,7 @@ Final attribution was achieved via OSINT enrichment of an associated email accou
 
 ---
 
-## Scenario Context
+## Scenario Context and Objectives
 
 The case file describes the disappearance of a refrigerated HGV operated by TransEuro Logistics s.r.o., transporting approximately 413,793 units of confectionery product (≈12 tonnes) from Central Italy to Poland.
 
@@ -34,9 +34,17 @@ Preliminary intelligence assessment identified multiple indicators consistent wi
 
 These factors significantly reduce the likelihood of opportunistic theft and suggest controlled data leakage prior to departure.
 
+The scenario has the following objectives:
+
+- Identify the VPN service used by the anonymous email
+- Geolocate the last known location of the missing vehicle based on a dashcam image
+- Identify the timestamp of an anomalous event in the company route planning system
+- Identify the employee IDs of the sender of the anonymous email and the person responsible for leaking the shipment details
+- Identify the identity of the leaker
+
 ---
 
-## Phase 1 – Email Analysis (Origin Identification)
+## Phase 1 – Email Analysis (VPN Identification)
 
 ![Exhibit A](assets/images/Have-a-Break-1.png)
 
@@ -213,13 +221,17 @@ This behaviour is consistent with insider-assisted data exfiltration and represe
 
 An internal communication references an external email address attempting to access company files:
 
-
-kraliknovak09[@]gmail.com
+>Reminder to all staff — personal email addresses must not be
+used for accessing or sharing company files. This morning a
+request was received from an external address
+**(kraliknovak09[@]gmail.com)** to access files in the route
+planning shared folder. The request was blocked. Please use
+your company account for all work-related activity.
 
 
 ### Analysis
 
-The username does not directly reveal identity, requiring external OSINT enrichment.
+The address does not directly reveal identity, requiring external OSINT enrichment.
 
 ### Method
 
